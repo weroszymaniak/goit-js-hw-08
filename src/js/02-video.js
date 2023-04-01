@@ -2,10 +2,7 @@ import Player from '@vimeo/player';
 import _throttle from 'lodash.throttle';
 const LOCALSTORAGE_KEY = 'videoplayer-current-time';
 
-const player = new Player('handstick', {
-  id: 19231868,
-  width: 640,
-});
+const player = new Vimeo('vimeo-player');
 
 player.on('loaded', () => {
   const currentTime = localStorage.getItem(LOCALSTORAGE_KEY);
