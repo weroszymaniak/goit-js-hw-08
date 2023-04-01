@@ -42,3 +42,18 @@ function sendingForm(event) {
     };
   }
 }
+
+function changeForm() {
+  if (localStorage.getItem(LOCALSTORAGE_KEY)) {
+    formObj.email = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)).email;
+    formObj.message = JSON.parse(
+      localStorage.getItem(LOCALSTORAGE_KEY)
+    ).message;
+    emailInput.value = formObj.email;
+    messageInput.value = formObj.message;
+  } else {
+    return;
+  }
+}
+
+changeForm();
