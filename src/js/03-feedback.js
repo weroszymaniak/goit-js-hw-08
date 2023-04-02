@@ -45,13 +45,13 @@ function changeForm() {
 
 function sendingForm(event) {
   event.preventDefault();
-  if (emailInput.value && messageInput.value) {
-    console.log(formObj);
-    localStorage.clear();
-    event.currentTarget.reset();
-    formObj = {
-      email: '',
-      message: '',
-    };
-  }
+
+  formObj = {
+    email: emailInput.value,
+    message: messageInput.value,
+  };
+
+  console.log(formObj);
+  localStorage.clear();
+  event.currentTarget.reset();
 }
