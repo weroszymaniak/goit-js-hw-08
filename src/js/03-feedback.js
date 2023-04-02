@@ -30,18 +30,6 @@ messageInput.addEventListener(
 
 form.addEventListener('submit', sendingForm);
 
-function sendingForm(event) {
-  event.preventDefault();
-  if (emailInput.value && messageInput.value) {
-    console.log(formObj);
-    localStorage.clear();
-    formObj = {
-      email: '',
-      message: '',
-    };
-  }
-}
-
 function changeForm() {
   if (localStorage.getItem(LOCALSTORAGE_KEY)) {
     formObj.email = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)).email;
@@ -52,5 +40,18 @@ function changeForm() {
     messageInput.value = formObj.message;
   } else {
     return;
+  }
+}
+
+function sendingForm(event) {
+  event.preventDefault();
+  if (emailInput.value && messageInput.value) {
+    console.log(formObj);
+    localStorage.clear();
+    event.currentTarget.reset();
+    formObj = {
+      email: '',
+      message: '',
+    };
   }
 }
