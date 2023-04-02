@@ -5,13 +5,12 @@ const messageInput = document.querySelector('textarea');
 const LOCALSTORAGE_KEY = 'feedback-form-state';
 const form = document.querySelector('.feedback-form');
 
-//localStorage.setItem('email', 'emailInput');
-//localStorage.setItem('message', 'messageInput');
-
 let formObj = {
   email: '',
   message: '',
 };
+
+changeForm();
 
 emailInput.addEventListener(
   'imput',
@@ -55,5 +54,3 @@ function changeForm() {
     return;
   }
 }
-
-changeForm();
