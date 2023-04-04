@@ -10,48 +10,36 @@ let formObj = {
   message: '',
 };
 
-changeForm();
+form.addEventListener('submit', onSubmit);
+form.addEventListener('input', throttle(onInput, 500));
+saveData();
 
-emailInput.addEventListener(
-  'imput',
-  throttle(() => {
-    formObj.email = emailInput.value;
-    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(formObj));
-  }, 500)
-);
+function onInput(event) {
+  formObj[event.target.name] = event.target.value;
+  localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(formObj));
+}
 
-messageInput.addEventListener(
-  'imput',
-  throttle(() => {
-    formObj.message = messageInput.value;
-    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(formObj.message));
-  }, 500)
-);
-
-form.addEventListener('submit', sendingForm);
-
-function changeForm() {
-  if (localStorage.getItem(LOCALSTORAGE_KEY)) {
-    formObj.email = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY)).email;
-    formObj.message = JSON.parse(
-      localStorage.getItem(LOCALSTORAGE_KEY)
-    ).message;
-    emailInput.value = formObj.email;
-    messageInput.value = formObj.message;
-  } else {
-    return;
+function onSubmit(event) {
+  if (formObj) {
+    event.preventDefault();
+    console.log(formObj);
+    localStorage.removeItem(LOCALSTORAGE_KEY);
+    event.currentTarget.reset();
   }
 }
 
-function sendingForm(event) {
-  event.preventDefault();
+function saveData() {
+  const savedData = localStorage.getItem(LOCALSTORAGE_KEY);
+  const savedDataP = JSON.parse(savedData);
 
-  formObj = {
-    email: emailInput.value,
-    message: messageInput.value,
-  };
+  if (savedDataP) {
+    return returnData(savedDataP);
+  }
+}
 
-  console.log(formObj);
-  localStorage.clear();
-  event.currentTarget.reset();
+function returnData(data) {
+  formObj.email = data.email;
+  formObj.message = data.message;
+  form.elements.email.value = formObj.email;
+  form.elements.message.value = formObj.message;
 }
